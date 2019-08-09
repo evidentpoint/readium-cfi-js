@@ -21,13 +21,14 @@ export default {
       format: 'es',
       sourcemap: true,
     },
-
     {
       file: pkg.main,
       format: 'umd',
       name: 'ReadiumCFI',
+      globals: { jquery: '$' },
       sourcemap: true,
     },
   ],
+  external: ['jquery'],
   plugins,
 };
