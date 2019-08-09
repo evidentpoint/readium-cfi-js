@@ -14,13 +14,8 @@ const plugins = [
 ];
 
 export default {
-  input: 'src/index.js',
+  input: 'lib/index.js',
   output: [
-    {
-      file: pkg.module,
-      format: 'es',
-      sourcemap: true,
-    },
     {
       file: pkg.main,
       format: 'umd',

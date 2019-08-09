@@ -7,7 +7,7 @@
     "yarn": ">=0.23"
   },
   "main": "dist/readium-cfi.umd.js",
-  "module": "dist/readium-cfi.esm.js",
+  "module": "lib/index.js",
   "types": "readium-cfi-js.d.ts",
   "description": "Readium - CFI javascript library",
   "keywords": [
@@ -39,6 +39,7 @@
   },
   "files": [
     "dist/",
+    "lib/",
     "license.txt",
     "README.md"
   ],
@@ -47,6 +48,7 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
+    "@babel/cli": "7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "eslint": "^6.1.0",
@@ -75,7 +77,9 @@
   "scripts": {
     "clean": "rimraf dist/* && rimraf api-docs/* && rimraf gen/*",
     "prebuild": "npm run clean && pegjs -o gen/parser.js src/parser.pegjs",
-    "build": "rollup -c",
+    "build:babel": "babel src --out-dir lib",
+    "build:rollup": "rollup -c",
+    "build": "npm run build:babel && npm run build:rollup",
     "watch": "npm run build -- --watch",
     "lint": "eslint src/**/*.js test/**/*.spec.js",
     "format": "prettier --config .prettierrc --write src/**/**.js",

@@ -4,6 +4,7 @@
 
 This is a software component used by other Readium projects, see https://github.com/readium/readium-shared-js
 
+Forked by [@evidentpoint](https://github.com/evidentpoint) to add project & packaging enhancements, including minor code changes.
 
 ## License
 
@@ -16,25 +17,25 @@ See [license.txt](./license.txt).
 
 ### Using npm / yarn
 
-`npm install readium-cfi-js` or `yarn add readium-cfi-js`
+`npm install @evidentpoint/readium-cfi-js` or `yarn add @evidentpoint/readium-cfi-js`
 
 ### Importing
 
-**This library is bundled in UMD and ES module formats.**
+**This library is bundled in UMD and provided as ES module source files.**
 
 - CommonJS
 ```javascript
-const EPUBcfi = require('readium-cfi-js');
+const ReadiumCFI = require('@evidentpoint/readium-cfi-js');
 ```
 
 - ES Module
 ```javascript
-import * as EPUBcfi from 'readium-cfi-js';
+import * as ReadiumCFI from '@evidentpoint/readium-cfi-js';
 ```
 
-- Globally with `window.EPUBcfi`
+- Globally with `window.ReadiumCFI`
 ```html
-<script src="readium-cfi.umd.js"></script>
+<script src="dist/readium-cfi.umd.js"></script>
 ```
 
 ## Usage in non-browser environments (Node)
@@ -44,51 +45,40 @@ A subset of the API could work without a browser, which may be planned for a fut
 
 ## Development
 
-**Prerequisites:**
-
-* A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
-* NodeJS ( https://nodejs.org ) **v4+** (Note that NodeJS v6+ and NPM v3+ are now supported, including NodeJS v7+ and NPM v4+)
-* Firefox 55+ - For running the test suite.
-
 **Initial setup:**
 
-* `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `dist` folder contents)
+* `npm install` (to download dependencies defined in `package.json`)
 
 **Typical workflow:**
 
 * Hack away! (mostly the source code in `./src` and `./spec/models` )
-* `npm run build` (to update the output bundles in the `dist` folder)
+* `npm run build` (to update the output in the `dist`, and `lib` folder)
 
 **Unit tests:**
 
 * `npm run test` (Karma launcher)
 
-Travis (Continuous Integration): https://travis-ci.org/readium/readium-cfi-js/
+Travis (Continuous Integration): https://travis-ci.com/evidentpoint/readium-cfi-js/
 
 
-## Bundled outputs
+## Bundled output
 
-The `dist` directory contains bundled scripts in two module formats:
+The `dist` directory contains bundled scripts in UMD module format:
 
 ### UMD - [Universal Module Definition](https://github.com/umdjs/umd)
 
 `readium-cfi.umd.js` (and its associated source-map file),
 which aggregates all the required code (external library dependencies included, such as jQuery, etc.)
 
-You can include this as CommonJS/AMD or with the global `EPUBcfi`
+You can include this as CommonJS/AMD or with the global `ReadiumCFI`
 
 Works best for when using _Browserify_ or _RequireJS_
 
-### ES Modules
+## Importing as an ES Module
 
-`readium-cfi.esm.js` (and its associated source-map file),
-also aggregates all the required code
+Include the `lib/` source tree as an import. 
+
+There is no bundling of relative source files or external dependencies.
+External dependencies are assumed to be resolved using NPM conventions.
 
 Works best for _rollup.js_ or _webpack_
-
-
-
-## NPM package
-
-All packages "owned" and maintained by the Readium Foundation are listed here: https://www.npmjs.com/~readium
-

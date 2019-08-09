@@ -1,5 +1,6 @@
 .history
 .DS_Store
+lib
 dist
 test/dist
 node_modules
