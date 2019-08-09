@@ -424,12 +424,16 @@ export function injectElement(
     idBlacklist,
   );
 
-  // TODO: detect what kind of terminus; for now, text node termini are the only kind implemented
-  $currElement = interpretTextTerminusNode(
-    CFIAST.cfiString.localPath.termStep,
-    $currElement,
-    elementToInject,
-  );
+  const termStep1 = CFIAST.cfiString.localPath.termStep;
+  if (termStep1 && termStep1.type && termStep1.type === 'textTerminus') {
+    $currElement = this.interpretTextTerminusNode(
+      CFIAST.cfiString.localPath.termStep,
+      $currElement,
+      elementToInject,
+    );
+  } else {
+    $currElement = elementToInject.insertBefore($currElement);
+  }
 
   // Return the element that was injected into
   return $currElement;
@@ -479,11 +483,18 @@ export function injectRangeElements(
     elementBlacklist,
     idBlacklist,
   );
-  $range1TargetElement = interpretTextTerminusNode(
-    CFIAST.cfiString.range1.termStep,
-    $range1TargetElement,
-    startElementToInject,
-  );
+
+  const termStep1 = CFIAST.cfiString.range1.termStep;
+  if (termStep1 && termStep1.type && termStep1.type === 'textTerminus') {
+    $range1TargetElement = this.interpretTextTerminusNode(
+      termStep1,
+      $range1TargetElement,
+      startElementToInject,
+    );
+  } else {
+    // Insert before the start node
+    $range1TargetElement = startElementToInject.insertBefore($range1TargetElement);
+  }
 
   // Interpret the second range local_path
   $range2TargetElement = interpretLocalPath(
@@ -494,11 +505,18 @@ export function injectRangeElements(
     elementBlacklist,
     idBlacklist,
   );
-  $range2TargetElement = interpretTextTerminusNode(
-    CFIAST.cfiString.range2.termStep,
-    $range2TargetElement,
-    endElementToInject,
-  );
+
+  const termStep2 = CFIAST.cfiString.range2.termStep;
+  if (termStep2 && termStep2.type && termStep2.type === 'textTerminus') {
+    $range2TargetElement = this.interpretTextTerminusNode(
+      termStep2,
+      $range2TargetElement,
+      endElementToInject,
+    );
+  } else {
+    // Inject after the end node
+    $range2TargetElement = endElementToInject.insertAfter($range2TargetElement);
+  }
 
   // Return the element that was injected into
   return {
