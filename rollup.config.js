@@ -13,7 +13,7 @@ const plugins = [
   }),
 ];
 
-const standardConfig = {
+export default {
   input: 'src/index.js',
   output: [
     {
@@ -21,21 +21,13 @@ const standardConfig = {
       format: 'es',
       sourcemap: true,
     },
-  ],
-  plugins,
-};
 
-const compatibilityConfig = {
-  input: 'src/index-compat.js',
-  output: [
     {
       file: pkg.main,
       format: 'umd',
-      name: 'EPUBcfi',
+      name: 'ReadiumCFI',
       sourcemap: true,
     },
   ],
   plugins,
 };
-
-export default [standardConfig, compatibilityConfig];
