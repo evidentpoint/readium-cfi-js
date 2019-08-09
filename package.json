@@ -1,5 +1,5 @@
 {
-  "name": "readium-cfi-js",
+  "name": "@evidentpoint/readium-cfi-js",
   "version": "1.1.0",
   "engines": {
     "node": ">=4",
