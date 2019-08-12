@@ -29,7 +29,7 @@ const EPUBcfi = require('readium-cfi-js');
 
 - ES Module
 ```javascript
-import * as EPUBcfi from 'readium-cfi-js';
+import * as EPUBcfi from '@evidentpoint/readium-cfi-js';
 ```
 
 - Globally with `window.EPUBcfi`
