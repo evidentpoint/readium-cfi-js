@@ -40,6 +40,7 @@
   "files": [
     "dist/",
     "license.txt",
+    "readium-cfi-js.d.ts",
     "README.md"
   ],
   "dependencies": {
