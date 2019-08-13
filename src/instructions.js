@@ -56,7 +56,7 @@ export function injectCFIMarkerIntoText($textNodeList, textOffset, elementToInje
 
   let currTextPosition = 0;
   // The iteration counter may be incorrect here (should be $textNodeList.length - 1 ??)
-  for (let nodeNum = 0; nodeNum <= $textNodeList.length; nodeNum += 1) {
+  for (let nodeNum = 0; nodeNum < $textNodeList.length; nodeNum += 1) {
     if ($textNodeList[nodeNum].nodeType === Node.TEXT_NODE) {
       let $injectedNode;
       const currNodeMaxIndex = $textNodeList[nodeNum].nodeValue.length + currTextPosition;
@@ -79,7 +79,7 @@ export function injectCFIMarkerIntoText($textNodeList, textOffset, elementToInje
 
         return $injectedNode;
       }
-      if (currNodeMaxIndex === textOffset) {
+      if (currNodeMaxIndex == textOffset) {
         $injectedNode = $(elementToInject).insertAfter($textNodeList.eq(nodeNum));
         return $injectedNode;
       }
