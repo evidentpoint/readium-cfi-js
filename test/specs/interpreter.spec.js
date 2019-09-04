@@ -215,8 +215,10 @@ describe('CFI INTERPRETER OBJECT', () => {
       ['cfi-marker'],
     );
 
-    // Whitespace text-nodes and changing jquery implementation may break this
-    const result = $($($($dom.contents()).contents()[1]).contents()).contents()[6];
+    // Changing jquery implementation may break this
+    const parent = $($($($dom.contents()).contents()[1]).contents())[0];
+    parent.normalize();
+    const result = $(parent).contents()[5];
     expect(result.data).toEqual('67');
   });
 
@@ -248,8 +250,10 @@ describe('CFI INTERPRETER OBJECT', () => {
       ['cfi-marker'],
     );
 
-    // Whitespace text-nodes and changing jquery implementation may break this
-    const result = $($($($dom.contents()).contents()[1]).contents()).contents()[6];
+    // Changing jquery implementation may break this
+    const parent = $($($($dom.contents()).contents()[1]).contents())[0];
+    parent.normalize();
+    const result = $(parent).contents()[5];
     expect(result.data).toEqual('67');
   });
 
