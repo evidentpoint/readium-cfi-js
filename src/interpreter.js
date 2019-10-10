@@ -607,14 +607,46 @@ export function getRangeTargetElements(
   );
 
   // Get the start and end character offsets
-  const startOffset = parseInt(CFIAST.cfiString.range1.termStep.offsetValue, 10) || undefined;
-  const endOffset = parseInt(CFIAST.cfiString.range2.termStep.offsetValue, 10) || undefined;
+  let startOffset = undefined;
+  let endOffset = undefined;
+
+  let startElement = $range1TargetElement[0];
+  let endElement = $range2TargetElement[0];
+
+  // null check and NaN check
+  const range1Offset = parseInt(CFIAST.cfiString.range1.termStep.offsetValue, 10);
+  if ((range1Offset || range1Offset === 0) && !isNaN(range1Offset)) {
+    startOffset = range1Offset;
+    for (let i = 0; i < $range1TargetElement.length; i++) {
+      startElement = $range1TargetElement[i];
+      if (startElement.length < startOffset) {
+        startOffset -= startElement.length;
+        continue;
+      } else {
+        break;
+      }
+    }
+  }
+
+  const range2Offset = parseInt(CFIAST.cfiString.range2.termStep.offsetValue, 10);
+  if ((range2Offset || range2Offset === 0) && !isNaN(range2Offset)) {
+    endOffset = range2Offset;
+    for (let i = 0; i < $range2TargetElement.length; i++) {
+      endElement = $range2TargetElement[i];
+      if (endElement.length < endOffset) {
+        endOffset -= endElement.length;
+        continue;
+      } else {
+        break;
+      }
+    }
+  }
 
   // Return the element (and char offsets) at the end of the CFI
   return {
-    startElement: $range1TargetElement[0],
+    startElement,
     startOffset,
-    endElement: $range2TargetElement[0],
+    endElement,
     endOffset,
   };
 }
