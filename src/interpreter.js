@@ -739,7 +739,9 @@ export function getTextTerminusInfoWithPartialCFI(
   let startOffset;
   let startElement = $currElement[0];
   const textOffset = parseInt(CFIAST.cfiString.localPath.termStep.offsetValue, 10);
-  if ((textOffset || textOffset === 0) && !Number.isNaN(textOffset)) {
+
+  // null check and NaN check
+  if ((textOffset || textOffset === 0) && !isNaN(textOffset)) {
     startOffset = textOffset;
     for (let i = 0; i < $currElement.length; i += 1) {
       startElement = $currElement[i];
@@ -790,7 +792,9 @@ export function getTextTerminusInfo(
   let startOffset;
   let startElement = $currElement[0];
   const textOffset = parseInt(CFIAST.cfiString.localPath.termStep.offsetValue, 10);
-  if ((textOffset || textOffset === 0) && !Number.isNaN(textOffset)) {
+
+  // null check and NaN check
+  if ((textOffset || textOffset === 0) && !isNaN(textOffset)) {
     startOffset = textOffset;
     for (let i = 0; i < $currElement.length; i += 1) {
       startElement = $currElement[i];
