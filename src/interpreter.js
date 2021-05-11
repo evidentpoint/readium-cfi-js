@@ -736,10 +736,25 @@ export function getTextTerminusInfoWithPartialCFI(
   );
 
   // Return the element at the end of the CFI
+  let startOffset;
+  let startElement = $currElement[0];
   const textOffset = parseInt(CFIAST.cfiString.localPath.termStep.offsetValue, 10);
+
+  // null check and NaN check
+  if ((textOffset || textOffset === 0) && !isNaN(textOffset)) {
+    startOffset = textOffset;
+    for (let i = 0; i < $currElement.length; i += 1) {
+      startElement = $currElement[i];
+      if (startElement.length < startOffset) {
+        startOffset -= startElement.length;
+      } else {
+        break;
+      }
+    }
+  }
   return {
-    textNode: $currElement[0],
-    textOffset,
+    textNode: startElement,
+    textOffset: startOffset,
   };
 }
 
@@ -774,10 +789,25 @@ export function getTextTerminusInfo(
   );
 
   // Return the element at the end of the CFI
+  let startOffset;
+  let startElement = $currElement[0];
   const textOffset = parseInt(CFIAST.cfiString.localPath.termStep.offsetValue, 10);
+
+  // null check and NaN check
+  if ((textOffset || textOffset === 0) && !isNaN(textOffset)) {
+    startOffset = textOffset;
+    for (let i = 0; i < $currElement.length; i += 1) {
+      startElement = $currElement[i];
+      if (startElement.length < startOffset) {
+        startOffset -= startElement.length;
+      } else {
+        break;
+      }
+    }
+  }
   return {
-    textNode: $currElement[0],
-    textOffset,
+    textNode: startElement,
+    textOffset: startOffset,
   };
 }
 

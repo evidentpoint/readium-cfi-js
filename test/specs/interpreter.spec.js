@@ -257,6 +257,41 @@ describe('CFI INTERPRETER OBJECT', () => {
     expect(result.data).toEqual('67');
   });
 
+  it('can get previously injected text node of blacklisted elements', () => {
+    // the assumption here being that the .cfi-marker elements have been injected
+    // and split up the text node '0123456789'
+
+    const dom =
+      '<html>' +
+      '<div></div>' +
+      '<div>' +
+      "<div id='startParent'>" +
+      '0' +
+      "<span class='cfi-marker' id='start'></span>" +
+      '12345' +
+      "<span class='cfi-marker' id='end'></span>" +
+      '6789' +
+      '</div>' +
+      '</div>' +
+      '<div></div>' +
+      '</html>';
+
+    const $dom = $(new window.DOMParser().parseFromString(dom, 'text/xml'));
+
+    const CFI = 'epubcfi(/6/14!/4/2[startParent]/1:8)';
+
+    const textTerminusResult = Interpreter.getTextTerminusInfo(
+      CFI,
+      $dom[0],
+      ['cfi-marker'],
+      [],
+      [],
+    );
+
+    expect(textTerminusResult.textNode.wholeText).toEqual('6789');
+    expect(textTerminusResult.textOffset).toEqual(2);
+  });
+
   it('returns a text node CFI target', () => {
     const CFI = 'epubcfi(/6/14!/4/2/14/1:4)';
     const textNode = 3;
@@ -426,6 +461,41 @@ describe('CFI INTERPRETER OBJECT', () => {
 
       expect(textNode.nodeType).toBe(textNodeType);
       expect(textOffset).toBe(4);
+    });
+
+    it('can get previously injected text node of blacklisted elements using partial cfi', () => {
+      // the assumption here being that the .cfi-marker elements have been injected
+      // and split up the text node '0123456789'
+
+      const dom =
+        '<html>' +
+        '<div></div>' +
+        '<div>' +
+        "<div id='startParent'>" +
+        '0' +
+        "<span class='cfi-marker' id='start'></span>" +
+        '12345' +
+        "<span class='cfi-marker' id='end'></span>" +
+        '6789' +
+        '</div>' +
+        '</div>' +
+        '<div></div>' +
+        '</html>';
+
+      const $dom = $(new window.DOMParser().parseFromString(dom, 'text/xml'));
+
+      const CFI = 'epubcfi(/4/2[startParent]/1:8)';
+
+      const textTerminusResult = Interpreter.getTextTerminusInfoWithPartialCFI(
+        CFI,
+        $dom[0],
+        ['cfi-marker'],
+        [],
+        [],
+      );
+
+      expect(textTerminusResult.textNode.wholeText).toEqual('6789');
+      expect(textTerminusResult.textOffset).toEqual(2);
     });
   });
 
